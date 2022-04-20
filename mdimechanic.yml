@@ -1,20 +1,38 @@
-code_name: 'UNKNOWN'
+code_name: 'ELECTRIC'
 docker:
-  image_name: 'mdiengine'
+  image_name: 'mdi/electric'
 
   build_image:
-    - echo "Insert commands to build the environment for the engine here"
-    - echo "This will often include using apt-get or pip to install dependencies"
+    - apt-get update
+    - apt-get install -y git vim cmake
+    - pip install numpy
+    - pip install pandas
 
   build_engine:
-    - echo "Insert commands to build your engine code here"
+    - |
+      if [ ! -d "build/ELECTRIC" ]; then
+        git clone --recurse-submodules https://github.com/WelbornGroup/ELECTRIC.git build/ELECTRIC
+      fi
+    - cd build/ELECTRIC
+    - ./build.sh
 
   validate_engine:
-    - echo "Insert code that will confirm that your code has been built successfully"
-    - exit 1
+    - cd build/ELECTRIC/test/bench5
+    - ./tcp.sh
 
 engine_tests:
   # Provide at least one example input that can be used to test your code's MDI functionality
   script:
     - echo "Insert commands to run an example calculation here"
     - exit 1
+
+
+run_scripts:
+
+  test:
+    containers:
+      container1:
+        image: 'mdi/electric'
+        script:
+          - cd build/ELECTRIC/test/bench5
+          - ./tcp.sh
