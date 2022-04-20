@@ -7,6 +7,7 @@ docker:
     - apt-get install -y git vim cmake
     - pip install numpy
     - pip install pandas
+    - pip install pytest
 
   build_engine:
     - |
@@ -42,6 +43,14 @@ engine_tests:
 run_scripts:
 
   test:
+    containers:
+      container1:
+        image: 'mdi/electric'
+        script:
+          - cd build/ELECTRIC/ELECTRIC/pytest
+          - pytest -vv
+
+  tcp:
     containers:
       container1:
         image: 'mdi/electric'
