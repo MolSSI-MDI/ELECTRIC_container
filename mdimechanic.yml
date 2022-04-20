@@ -14,7 +14,19 @@ docker:
         git clone --recurse-submodules https://github.com/WelbornGroup/ELECTRIC.git build/ELECTRIC
       fi
     - cd build/ELECTRIC
-    - ./build.sh
+
+    # Compile the Tinker submodule
+    - cd modules/Tinker/dev
+    - ./full_build.sh
+    - cd ../build/tinker/source
+    - echo /repo/build/ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x > ../../../../../test/locations/Tinker_ELECTRIC
+    - cd ../../../../../
+
+    # Compile ELECTRIC
+    - cmake .
+    - make
+    - cd ELECTRIC
+    - echo /repo/build/ELECTRIC/ELECTRIC/ELECTRIC.py > ../test/locations/ELECTRIC
 
   validate_engine:
     - cd build/ELECTRIC/test/bench5
