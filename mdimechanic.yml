@@ -18,6 +18,7 @@ docker:
 
     # Compile the Tinker submodule
     - cd modules/Tinker/dev
+    - git checkout mdi-rebase
     - ./full_build.sh
     - cd ../build/tinker/source
     - echo /repo/build/ELECTRIC/modules/Tinker/build/tinker/source/dynamic.x > ../../../../../test/locations/Tinker_ELECTRIC
