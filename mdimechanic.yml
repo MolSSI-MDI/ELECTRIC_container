@@ -45,7 +45,7 @@ run_scripts:
   test:
     containers:
       container1:
-        image: 'mdi/electric'
+        image: 'mdi/electric:dev'
         script:
           - cd build/ELECTRIC/ELECTRIC/pytest
           - pytest -vv
@@ -53,7 +53,7 @@ run_scripts:
   tcp:
     containers:
       container1:
-        image: 'mdi/electric'
+        image: 'mdi/electric:dev'
         script:
           - cd build/ELECTRIC/test/bench5
           - ./tcp.sh
